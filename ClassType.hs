@@ -32,10 +32,17 @@ data SelectPkg = SelectPkg {
     }
         deriving (Generic, Show)
 
+data SelectInfo = SelectInfo {
+    roundName :: String
+    ,selectList :: [Lesson]
+    ,removeList :: [Lesson]
+}
+    deriving (Generic, Show)
 
 instance ToJSON RoundInfo where 
 instance ToJSON Lesson where 
-instance ToJSON SelectPkg where 
+instance ToJSON SelectPkg where
+instance ToJSON SelectInfo where  
 instance FromJSON RoundMap where 
     parseJSON (Object v) = RoundMap <$> v .: "data"
     parseJSON invalid = prependFailure "parsing Coord failed, " (typeMismatch "Object" invalid)
@@ -44,3 +51,4 @@ instance FromJSON RoundMap where
 instance FromJSON RoundInfo where 
 instance FromJSON SelectPkg where 
 instance FromJSON Lesson where 
+instance FromJSON SelectInfo where 

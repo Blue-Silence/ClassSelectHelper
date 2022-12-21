@@ -1,0 +1,12 @@
+{
+    "roundName":"新生选课",
+    "selectList":[
+        {
+        "teachClassId":1111111124878748,
+        "teachClassCode":"03054501",
+        "courseCode":"030545"
+        }
+        ],
+    "removeList":[
+        ]
+}
