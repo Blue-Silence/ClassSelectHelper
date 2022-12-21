@@ -1,4 +1,6 @@
 {
+    "sendTimeSlice":500000,
+    "waitTimeSlice":1000000,
     "roundName":"新生选课",
     "selectList":[
         {

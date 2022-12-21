@@ -33,7 +33,9 @@ data SelectPkg = SelectPkg {
         deriving (Generic, Show)
 
 data SelectInfo = SelectInfo {
-    roundName :: String
+    sendTimeSlice :: Int
+    ,waitTimeSlice :: Int
+    ,roundName :: String
     ,selectList :: [Lesson]
     ,removeList :: [Lesson]
 }

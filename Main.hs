@@ -30,6 +30,8 @@ main = do
     let rN = roundName config 
         sL = selectList config
         rL = removeList config
+        sT = sendTimeSlice config
+        wT = waitTimeSlice config
 
     cks<-login
     manager<-newManager tlsManagerSettings
@@ -38,14 +40,26 @@ main = do
     let cookies=createCookieJar c
 
     (RoundMap roundLt)<-getRoundInfo manager cookies
-    roundInfo<-isUseful "Can't find round." $ findRoundInfo rN roundLt
+    --roundInfo<-isUseful "Can't find round." $ findRoundInfo rN roundLt
+    roundInfo<- let 
+                    waitLoop = do
+                            threadDelay wT
+                            putStrLn "Wait for round to start"
+                            let i = findRoundInfo rN roundLt
+                            case i of 
+                                Just a -> return a 
+                                _->waitLoop
+                            
+                in waitLoop
+
+
 
     let p=SelectPkg{roundId=ClassType.id roundInfo,elecClassList=sL,withdrawClassList=rL}
     
     forever $ do 
                 s<-selectLesson manager cookies p
                 (putStrLn . show) s
-                threadDelay (5*(10^5))
+                threadDelay sT
 
                     
 findRoundInfo :: String->[RoundInfo]->Maybe RoundInfo
