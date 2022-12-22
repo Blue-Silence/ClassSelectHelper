@@ -39,12 +39,13 @@ main = do
     c<-isUseful "Faild to get cookies." cks
     let cookies=createCookieJar c
 
-    (RoundMap roundLt)<-getRoundInfo manager cookies
-    --roundInfo<-isUseful "Can't find round." $ findRoundInfo rN roundLt
+    {-(RoundMap roundLt)<-getRoundInfo manager cookies
+    roundInfo<-isUseful "Can't find round." $ findRoundInfo rN roundLt-}
     roundInfo<- let 
                     waitLoop = do
                             threadDelay wT
                             putStrLn "Wait for round to start"
+                            (RoundMap roundLt)<-getRoundInfo manager cookies
                             let i = findRoundInfo rN roundLt
                             case i of 
                                 Just a -> return a 

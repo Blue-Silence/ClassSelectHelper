@@ -14,6 +14,7 @@ import qualified Network.HTTP.Client as NH
 import Data.Time.Clock(getCurrentTime,NominalDiffTime(..),addUTCTime)
 import System.IO.Unsafe(unsafePerformIO) 
 import Data.Text.Encoding
+import Control.Concurrent(threadDelay)
 
 type WebDriver eff a = WebDriverT eff a
 
@@ -22,6 +23,8 @@ type WebDriver eff a = WebDriverT eff a
 l :: WebDriver IO [NH.Cookie]
 l = do
   navigateTo "https://1.tongji.edu.cn/sslogin"
+
+  return $ threadDelay 100000
   waitFor "https://1.tongji.edu.cn/workbench"
   --a<-fmap (Prelude.map (\x->CK (_cookieName x) (_cookieValue x))) getAllCookies
   a<-fmap (Prelude.map cookiesTransfer) getAllCookies
