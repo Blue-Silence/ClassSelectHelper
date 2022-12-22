@@ -1,2 +1,2 @@
 # ClassSelectHelper
-A program to select classes with Selenium for TJU students.
+A haskell script to select classes with Selenium.
